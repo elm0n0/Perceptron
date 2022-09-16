@@ -1,4 +1,4 @@
-package main;
+package src.main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -59,14 +59,26 @@ public class App {
 		
 		Perceptron p = new Perceptron(new int[] { entradas.get(0).length, 10, salidas.get(0).length });
 		p.Entrenar(entradas, salidas, 0.5, 0.000001);
-
+		
 		Scanner read = new Scanner(System.in);
-		while (true) {
+		
+		boolean parada = false;
+		
+		while (true && !parada) {
 			double a = read.nextDouble();
 			double b = read.nextDouble();
 			//Long resultado = Math.round(p.Activacion(new double[] { a, b })[0]);
 			System.out.println(p.Activacion(new double[] { a, b })[0]);
+			System.out.println("escriba exit para salir o cualquier otra cosa para continuar");
+			// consumimos la linea, ya que nextDouble no lee el caracter de fin de linea
+			read.nextLine();
+			// ingresamos la nueva linea a leer para la condicion de parada
+			String texto = read.nextLine();
+			if (texto.equals("exit")) {
+				parada = true;
+			}
 		}
+		read.close();
 
 	}
 
